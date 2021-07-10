@@ -39,9 +39,15 @@ module.exports.setupAllRoutes = (e) => {
 
   e.post('/users', (req, res) => {
     const { name } = req.body
-    users.push({ id: users.length + 1, name})
+    if (name) {
+      users.push({ id: users.length + 1, name})
+      res.json({ success: true})
 
-    res.json({ success: true})
+      return
+    }
+
+
+    res.status(422).json({ message: "junior love iu"})
   })
 
   return e
