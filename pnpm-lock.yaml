@@ -10,6 +10,7 @@ importers:
       '@types/react': ^17.0.0
       '@types/react-dom': ^17.0.0
       '@vitejs/plugin-react-refresh': ^1.3.1
+      ky: ^0.28.5
       prettier: ^2.3.2
       react: ^17.0.0
       react-dom: ^17.0.0
@@ -17,6 +18,7 @@ importers:
       typescript: ^4.3.2
       vite: ^2.3.8
     dependencies:
+      ky: 0.28.5
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-query: 3.18.1_react-dom@17.0.2+react@17.0.2
@@ -749,6 +751,11 @@ packages:
     dependencies:
       minimist: 1.2.5
     dev: true
+
+  /ky/0.28.5:
+    resolution: {integrity: sha512-O5gg9kF4MeyfSw+YkgPAafOPwEUU6xcdGEJKUJmKpIPbLzk3oxUtY4OdBNekG7mawofzkyZ/ZHuR9ev5uZZdAA==}
+    engines: {node: '>=12'}
+    dev: false
 
   /loose-envify/1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
