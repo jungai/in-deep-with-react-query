@@ -27,7 +27,13 @@ module.exports.setupAllRoutes = (e) => {
     res.json({ hello: 'world'})
   })
 
-  e.get('/users', (_req, res) => {
+  e.get('/users', (req, res) => {
+    if (req.query?.id) {
+      res.json({ result: users.filter(user => user.id == req.query.id )})
+
+      return;
+    }
+
     res.json({ result: users})
   })
 
