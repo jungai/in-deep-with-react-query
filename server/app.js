@@ -2,7 +2,6 @@ const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
 const { setupAllRoutes } = require('./routes')
-const e = require('express')
 
 function setupCors(e) {
    return e.use(cors())
@@ -24,5 +23,5 @@ function setupParser(e) {
 
 const app = [setupCors, setupParser, setupMorgan, setupRoutes].reduce((e, middleware) => middleware(e) , express())
 
-module.exports = { app }
+module.exports = app
 
