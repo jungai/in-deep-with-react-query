@@ -16,7 +16,13 @@ function setupRoutes(e) {
   return setupAllRoutes(e)
 }
 
-const app = [setupCors, setupMorgan, setupRoutes].reduce((e, middleware) => middleware(e) , express())
+function setupParser(e) {
+  return e.use(express.json()).use(express.urlencoded({
+    extended: true
+  }))
+}
+
+const app = [setupCors, setupParser, setupMorgan, setupRoutes].reduce((e, middleware) => middleware(e) , express())
 
 module.exports = { app }
 
