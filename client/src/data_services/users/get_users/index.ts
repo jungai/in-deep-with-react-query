@@ -1,38 +1,43 @@
 import ky from 'ky';
-import { useQuery } from 'react-query';
+import { useQuery, QueryFunctionContext } from 'react-query';
 
 export interface IGetUsersResult {
     id: number;
     name: string;
 }
 
-export function getUsers(): () => Promise<{ result: IGetUsersResult[] }> {
+export type Result = { result: IGetUsersResult[] };
+
+export function getUsers(): () => Promise<Result> {
     // if has any params body
-    return () =>
-        ky
-            .get('http://localhost:4000/users')
-            .json<{ result: IGetUsersResult[] }>();
+    return () => ky.get('http://localhost:4000/users').json<Result>();
 }
 
 export function useUsers() {
     return useQuery('users', () => getUsers()());
 }
 
-export function getUsersWithId(): (
-    id: number,
-) => Promise<{ result: IGetUsersResult[] }> {
+export function getUsersWithId(): (id?: number) => Promise<Result> {
     // if has any params body
     return (id) =>
-        ky
-            .get(`http://localhost:4000/users?id=${id}`)
-            .json<{ result: IGetUsersResult[] }>();
+        ky.get(`http://localhost:4000/users?id=${id}`).json<Result>();
 }
+
+type QueryKey = [string, { id?: number }]; // args[1] contain query string, params
 
 /**
  * Query Keys
  *
  * {@link https://react-query.tanstack.com/guides/query-keys#query-keys-are-hashed-deterministically}
  */
-export function useUsersWithId(id: number) {
-    return useQuery(['users', { id }], () => getUsersWithId()(id));
+export function useUsersWithId(id?: number) {
+    return useQuery<Result, Error, Result, QueryKey>(
+        ['users', { id }],
+        (_context) => getUsersWithId()(id),
+        {
+            // Dependent Queries
+            // The query will not execute until the id exists
+            enabled: !!id,
+        },
+    );
 }
