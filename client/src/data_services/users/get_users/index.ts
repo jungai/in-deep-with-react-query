@@ -35,8 +35,9 @@ export function useUsersWithId(id?: number) {
         ['users', { id }],
         (_context) => getUsersWithId()(id),
         {
-            // Dependent Queries
+            // Dependent Queries (<- might be this case in my case than disabling queries)
             // The query will not execute until the id exists
+            // or https://react-query.tanstack.com/guides/disabling-queries
             enabled: !!id,
         },
     );
